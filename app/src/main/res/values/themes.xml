@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- 状态烂颜色 -->
+        <item name="android:statusBarColor">@color/status_bar</item>
+    </style>
+
+    <style name="Theme.Launch" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--  是否半透明的窗口  -->
+        <!--  <item name="android:windowIsTranslucent">true</item>  -->
+        <!--  是否半透明的状态栏  -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

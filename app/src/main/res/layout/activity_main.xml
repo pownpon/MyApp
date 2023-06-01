@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homepage.MainActivity">
+
+
+    <FrameLayout
+        android:id="@+id/lat_act_main_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_page_top_content"
+        android:background="@color/bg_page"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_act_main_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_page_bottom_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <View
+        style="@style/style_divider_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/rv_act_main_menu"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/ft_act_main_content"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@+id/lat_act_main_top"
+        app:layout_constraintBottom_toTopOf="@+id/rv_act_main_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
