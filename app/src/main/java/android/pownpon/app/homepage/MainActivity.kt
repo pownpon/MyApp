@@ -1,6 +1,7 @@
 package android.pownpon.app.homepage
 
 import android.os.Bundle
+import android.pownpon.app.R
 import androidx.appcompat.app.AppCompatActivity
 import android.pownpon.app.databinding.ActivityMainBinding
 import android.pownpon.app.global.double_click_time_interval
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData(){
-        getAdapter().refreshData(listOf(1,33,8))
+        val tabs:Array<String> = resources.getStringArray(R.array.main_tab)
+        getAdapter().refreshData(tabs.asIterable())
     }
 
     private fun getAdapter() = binding.rvActMainMenu.adapter as MainTabAdapter
