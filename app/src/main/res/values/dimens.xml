@@ -1,6 +1,7 @@
 <resources>
-    <dimen name="h_page_bottom_content">45dp</dimen>
+    <dimen name="h_page_bottom_content">50dp</dimen>
     <dimen name="h_page_top_content">32dp</dimen>
+    <dimen name="wh_icon">24dp</dimen>
 
     <dimen name="space_page_margins">12dp</dimen>
 
