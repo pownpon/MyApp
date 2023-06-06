@@ -1,7 +1,6 @@
 package android.pownpon.app.listener
 
 import android.content.Context
-import android.pownpon.app.global.showLog
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
@@ -20,13 +19,11 @@ class OnRecyclerViewItemClickListener(
         mGestureDetector =
             GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onSingleTapUp(e: MotionEvent): Boolean {
-                    showLog(this@OnRecyclerViewItemClickListener, "00000")
                     onClick?.let { it(getPosition(e)) }
                     return true
                 }
 
                 override fun onLongPress(e: MotionEvent) {
-                    showLog(this@OnRecyclerViewItemClickListener, "11111")
                     onLongClick?.let { it(getPosition(e)) }
                 }
             })
@@ -39,7 +36,6 @@ class OnRecyclerViewItemClickListener(
     }
 
     override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-        showLog(this@OnRecyclerViewItemClickListener, "intercept")
         if (mDisallowIntercept) {
             return false
         }
@@ -48,13 +44,11 @@ class OnRecyclerViewItemClickListener(
     }
 
     override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-        showLog(this@OnRecyclerViewItemClickListener, "touch")
         mRecyclerView = rv
         mGestureDetector.onTouchEvent(e)
     }
 
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-        showLog(this@OnRecyclerViewItemClickListener, "request")
         mDisallowIntercept = disallowIntercept
     }
 }
