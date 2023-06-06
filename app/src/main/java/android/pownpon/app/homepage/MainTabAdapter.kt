@@ -4,6 +4,7 @@ import android.content.Context
 import android.pownpon.app.base.BaseRecyclerViewAdapter
 import android.pownpon.app.base.BaseRecyclerViewHolder
 import android.pownpon.app.databinding.ItemMainTabBinding
+import android.pownpon.app.global.showLog
 import android.view.ViewGroup
 
 class MainTabAdapter(context: Context) :
@@ -18,11 +19,16 @@ class MainTabAdapter(context: Context) :
     }
 
     override fun onBind(
-        holder: BaseRecyclerViewHolder<ItemMainTabBinding>,
+        binding: ItemMainTabBinding,
         position: Int,
         item: String
     ) {
-        holder.binding.tvItemMainTab.text = item
+        binding.let {
+            it.tvItemMainTab.text = item
+            it.ivItemMainTabIcon.setOnClickListener {
+                showLog(this@MainTabAdapter,"点击了")
+            }
+        }
     }
 
 

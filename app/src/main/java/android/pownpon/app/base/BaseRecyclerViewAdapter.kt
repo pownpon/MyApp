@@ -1,7 +1,6 @@
 package android.pownpon.app.base
 
 import android.content.Context
-import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseRecyclerViewAdapter<T, VB : ViewBinding>(context: Context) :
@@ -10,8 +9,8 @@ abstract class BaseRecyclerViewAdapter<T, VB : ViewBinding>(context: Context) :
     final override fun getItemCount(): Int = dataList.size
 
     final override fun onBindViewHolder(holder: BaseRecyclerViewHolder<VB>, position: Int) {
-        onBind(holder, position, dataList[position])
+        onBind(holder.binding, position, dataList[position])
     }
 
-    abstract fun onBind(holder: BaseRecyclerViewHolder<VB>, position: Int, item: T)
+    abstract fun onBind(binding:VB, position: Int, item: T)
 }

@@ -40,13 +40,10 @@ class MainActivity : AppCompatActivity() {
         binding.rvActMainMenu.adapter = MainTabAdapter(this@MainActivity)
         binding.rvActMainMenu.addOnItemTouchListener(
             OnRecyclerViewItemClickListener(
-                this@MainActivity,
-                {
-                    showLog(this@MainActivity, "long____$it")
-                },
-                {
-                    showLog(this@MainActivity, "click____$it")
-                })
+                this@MainActivity, null
+            ) {
+                changFragment(it)
+            }
         )
     }
 

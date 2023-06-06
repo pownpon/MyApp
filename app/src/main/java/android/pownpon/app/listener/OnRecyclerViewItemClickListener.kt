@@ -14,6 +14,7 @@ class OnRecyclerViewItemClickListener(
 
     private val mGestureDetector: GestureDetector
     private var mRecyclerView: RecyclerView? = null
+    private var mDisallowIntercept = false
 
     init {
         mGestureDetector =
@@ -38,15 +39,22 @@ class OnRecyclerViewItemClickListener(
     }
 
     override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-        return true
+        showLog(this@OnRecyclerViewItemClickListener, "intercept")
+        if (mDisallowIntercept) {
+            return false
+        }
+        val itemView = rv.findChildViewUnder(e.x, e.y)
+        return true != itemView?.dispatchTouchEvent(e)
     }
 
     override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+        showLog(this@OnRecyclerViewItemClickListener, "touch")
         mRecyclerView = rv
         mGestureDetector.onTouchEvent(e)
     }
 
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-
+        showLog(this@OnRecyclerViewItemClickListener, "request")
+        mDisallowIntercept = disallowIntercept
     }
 }
