@@ -1,21 +1,24 @@
 package android.pownpon.app.homepage
 
 import android.os.Bundle
-import android.pownpon.app.R
-import androidx.appcompat.app.AppCompatActivity
+import android.pownpon.app.base.BaseActivity
 import android.pownpon.app.databinding.ActivityMainBinding
 import android.pownpon.app.global.double_click_time_interval
 import android.pownpon.app.global.showLog
 import android.pownpon.app.global.showToast
 import android.pownpon.app.listener.OnRecyclerViewItemClickListener
 import android.view.KeyEvent
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var clickBackCodeTime = 0L
 
+    private val model: MainViewModel by lazy {
+        ViewModelProvider(this@MainActivity)[MainViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +51,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        val tabs: Array<String> = resources.getStringArray(R.array.main_tab)
-        getLayoutManager().spanCount = tabs.size
-        getAdapter().refreshData(tabs.asIterable())
-
+        model.tabs.observe(this) {
+            getLayoutManager().spanCount = it.count()
+            getAdapter().refreshData(it.asIterable())
+        }
+        model.initTabs(this@MainActivity)
     }
 
     private fun getLayoutManager() = binding.rvActMainMenu.layoutManager as GridLayoutManager
