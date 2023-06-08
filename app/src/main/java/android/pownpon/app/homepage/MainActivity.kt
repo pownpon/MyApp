@@ -8,27 +8,11 @@ import android.pownpon.app.global.showLog
 import android.pownpon.app.global.showToast
 import android.pownpon.app.listener.OnRecyclerViewItemClickListener
 import android.view.KeyEvent
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-    private lateinit var binding: ActivityMainBinding
     private var clickBackCodeTime = 0L
-
-    private val model: MainViewModel by lazy {
-        ViewModelProvider(this@MainActivity)[MainViewModel::class.java]
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        initView()
-        initData()
-    }
 
     private fun changFragment(position: Int) {
         showLog(this, "$position")
@@ -37,7 +21,7 @@ class MainActivity : BaseActivity() {
     /**
      * 初始化视图内容
      */
-    private fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         binding.rvActMainMenu.layoutManager =
             GridLayoutManager(this@MainActivity, 1)
         binding.rvActMainMenu.adapter = MainTabAdapter(this@MainActivity)
@@ -50,11 +34,14 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    private fun initData() {
+    override fun initObserve(savedInstanceState: Bundle?) {
         model.tabs.observe(this) {
             getLayoutManager().spanCount = it.count()
             getAdapter().refreshData(it.asIterable())
         }
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
         model.initTabs(this@MainActivity)
     }
 
