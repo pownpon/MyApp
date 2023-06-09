@@ -29,7 +29,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/ft_act_main_content"
+        android:id="@+id/fcv_act_main_content"
         android:background="@color/divider"
         app:layout_constraintTop_toBottomOf="@+id/lat_act_main_top"
         app:layout_constraintBottom_toTopOf="@+id/rv_act_main_menu"

@@ -4,18 +4,26 @@ import android.os.Bundle
 import android.pownpon.app.base.BaseActivity
 import android.pownpon.app.databinding.ActivityMainBinding
 import android.pownpon.app.global.double_click_time_interval
-import android.pownpon.app.global.showLog
 import android.pownpon.app.global.showToast
 import android.pownpon.app.listener.OnRecyclerViewItemClickListener
 import android.view.KeyEvent
+import android.pownpon.app.R
 import androidx.recyclerview.widget.GridLayoutManager
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-    private var clickBackCodeTime = 0L
+    private var mClickBackCodeTime = 0L
+    private var mCurFragmentIndex = 0
+    private val mFragments = arrayOf(MainHomeFragment.newInstance(), MainMyFragment.newInstance())
 
-    private fun changFragment(position: Int) {
-        showLog(this, "$position")
+    private fun changFragment(index: Int) {
+        if (mCurFragmentIndex != index && index in mFragments.indices) {
+            supportFragmentManager
+                .beginTransaction()
+                .hide(mFragments[mCurFragmentIndex])
+                .show(mFragments[index]).commit()
+            mCurFragmentIndex = index
+        }
     }
 
     /**
@@ -32,6 +40,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 changFragment(it)
             }
         )
+
+        supportFragmentManager.beginTransaction().apply {
+            mFragments.forEach {
+                add(R.id.fcv_act_main_content, it).hide(it)
+            }
+            show(mFragments.first())
+            commit()
+        }
     }
 
     override fun initObserve(savedInstanceState: Bundle?) {
@@ -53,11 +69,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             val curTime = System.currentTimeMillis()
-            if (curTime - clickBackCodeTime > double_click_time_interval) {
+            if (curTime - mClickBackCodeTime > double_click_time_interval) {
                 showToast(this@MainActivity, "双击退出应用")
-                clickBackCodeTime = curTime
+                mClickBackCodeTime = curTime
             } else {
-                clickBackCodeTime = 0L
+                mClickBackCodeTime = 0L
                 finish()
             }
             return true
