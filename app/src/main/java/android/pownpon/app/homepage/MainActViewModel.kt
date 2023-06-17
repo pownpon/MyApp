@@ -6,7 +6,7 @@ import android.pownpon.app.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class MainViewModel : BaseViewModel() {
+class MainActViewModel : BaseViewModel() {
 
     private val _tabs = MutableLiveData<Iterable<String>>()
     val tabs: LiveData<Iterable<String>> = _tabs
@@ -15,4 +15,6 @@ class MainViewModel : BaseViewModel() {
         val tabRes: Array<String> = context.resources.getStringArray(R.array.main_tab)
         _tabs.value = tabRes.asIterable()
     }
+
+    val testStr: MutableLiveData<String> = MutableLiveData<String>()
 }

@@ -1,7 +1,6 @@
 package android.pownpon.app.base
 
 import android.os.Bundle
-import android.pownpon.app.global.showLog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment() {
         initView(savedInstanceState)
         initObserve(savedInstanceState)
         initData(savedInstanceState)
-        showLog(this,"1111111")
         return _binding.root
     }
 

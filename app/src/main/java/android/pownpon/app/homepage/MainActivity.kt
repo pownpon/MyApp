@@ -8,9 +8,10 @@ import android.pownpon.app.global.showToast
 import android.pownpon.app.listener.OnRecyclerViewItemClickListener
 import android.view.KeyEvent
 import android.pownpon.app.R
+import android.pownpon.app.global.showLog
 import androidx.recyclerview.widget.GridLayoutManager
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainActViewModel>() {
 
     private var mClickBackCodeTime = 0L
     private var mCurFragmentIndex = 0
@@ -21,7 +22,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             supportFragmentManager
                 .beginTransaction()
                 .hide(mFragments[mCurFragmentIndex])
-                .show(mFragments[index]).commit()
+                .show(mFragments[index])
+                .commit()
             mCurFragmentIndex = index
         }
     }
@@ -54,6 +56,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         model.tabs.observe(this) {
             getLayoutManager().spanCount = it.count()
             getAdapter().refreshData(it.asIterable())
+        }
+        model.testStr.observe(this) {
+            showLog(this, it)
         }
     }
 

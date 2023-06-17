@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlin.reflect.KClass
 import kotlin.reflect.full.staticFunctions
 
@@ -11,6 +13,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
 
     private lateinit var _binding: VB
     private lateinit var _model: VM
+    protected val scope = MainScope()
 
     protected val binding: VB
         get() = _binding
@@ -28,6 +31,11 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         initView(savedInstanceState)
         initObserve(savedInstanceState)
         initData(savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 
     private fun initGeneric() {
